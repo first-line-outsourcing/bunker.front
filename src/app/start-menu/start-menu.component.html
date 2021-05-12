@@ -1,23 +1,34 @@
 <h2>Начать игру</h2>
 
 <div>
-  <label for="name">Ваше имя </label>
-  <input id="name" #name />
-
-  <label for="link">Код для присоединения </label>
-  <input id="link" #link />
-  <button class="joinGame-button" (click)="joinGame(name.toString(), link.toString())">
-    Присоединиться к игре
-    <!--   TODO сервис для присоединения//-->
-  </button>
+  <form [formGroup]="userForm" >
+    <label >Ваше имя</label>
+    <input formControlName="name"/>
+  </form>
 </div>
 
 <div>
-  <button class="setSetupGame-button" (click)="setSetupGame()">
-    Настроить свою игру
+  <button class="set-button" (click)="setSetupGame()">
+    Создать игру!
   </button>
-  <app-game-setup [setupGame]="setupGame"></app-game-setup>
-
+  <button class="set-button" (click)="setFormLink()">
+    Присоединиться к игре
+  </button>
 </div>
+
+
+<div *ngIf="formLink && userForm.get('name').value">
+  <form [formGroup]="joinForm" (ngSubmit)="joinGame()" >
+    <label>Код для присоединения </label>
+    <input formControlName="link" />
+    <button type="submit" [disabled]="!joinForm.valid">
+      Присоединиться!
+    </button>
+  </form>
+</div>
+
+
+<app-game-setup [setupGame]="setupGame" [name]="userForm.get('name').value"></app-game-setup>
+
 
 

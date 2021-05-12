@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
@@ -13,7 +14,6 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { StartMenuComponent } from './start-menu/start-menu.component';
 import { GameComponent } from './game/game.component';
-import { ChatComponent } from './chat/chat.component';
 import { GameSetupComponent } from './game-setup/game-setup.component';
 
 @NgModule({
@@ -26,12 +26,12 @@ import { GameSetupComponent } from './game-setup/game-setup.component';
     HeroSearchComponent,
     StartMenuComponent,
     GameComponent,
-    ChatComponent,
     GameSetupComponent,
 ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
 
 // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
