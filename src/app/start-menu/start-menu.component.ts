@@ -22,6 +22,8 @@ export class StartMenuComponent implements OnInit, OnDestroy {
     link: new FormControl('', [Validators.minLength(4), Validators.maxLength(10)])
   });
 
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -40,19 +42,17 @@ export class StartMenuComponent implements OnInit, OnDestroy {
     this.setupGame = changeState(this.setupGame);
   }
 
-  joinGame(): void {
-     this.webSocketService.openWebSocket();
-     const summary = {
+  async joinGame(): Promise<void> {
+    if (!this.webSocketService.isConnected) {
+      await this.webSocketService.openWebSocket();
+    }
+    const summary = {
         name: this.userForm.get('name').value,
         link: this.joinForm.get('link').value,
       };
-     const data = new Data('join', summary);
-     console.log(data);
-     console.log(this.webSocketService.webSocket.readyState);
-     this.webSocketService.sendData(data);
-     console.log('player has been joined');
-
-
+    const data = new Data('join', summary);
+    console.log(data);
+    this.webSocketService.sendData(data);
   }
 
   setFormLink(): void {

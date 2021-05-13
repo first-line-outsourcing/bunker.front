@@ -57,9 +57,7 @@
     </button>
   </form>
 
-
-
-
+  <div *ngIf="webSocketService.ErrorData"> Error: {{webSocketService.ErrorData.body.description}}</div>
 </div>
 
 

@@ -43,10 +43,19 @@ export class GameSetupComponent implements OnInit {
   });
   }
 
-  createGame(): void {
-     console.log('game has been created');
-     const data = new Data('create', this.setupForm.value);
-     this.webSocketService.sendData(data);
+  async createGame(): Promise<void> {
+    if (!this.webSocketService.isConnected) {
+      await this.webSocketService.openWebSocket();
+    }
+    const gameData = new Data('create', this.setupForm.value);
+    this.webSocketService.sendData(gameData);
+    const summary = {
+      name: this.name,
+      link: this.setupForm.get('link').value,
+    };
+    const playerData = new Data('join', summary);
+    console.log(playerData);
+    this.webSocketService.sendData(playerData);
   }
 
 }

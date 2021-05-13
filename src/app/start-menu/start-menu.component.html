@@ -30,5 +30,7 @@
 
 <app-game-setup [setupGame]="setupGame" [name]="userForm.get('name').value"></app-game-setup>
 
+<div *ngIf="webSocketService.ErrorData"> Error: {{ webSocketService.ErrorData.body.description}}</div>
+
 
 
