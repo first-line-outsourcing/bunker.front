@@ -17,18 +17,10 @@
 </div>
 
 
-<div *ngIf="formLink && userForm.get('name').value">
-  <form [formGroup]="joinForm" (ngSubmit)="joinGame()" >
-    <label>Код для присоединения </label>
-    <input formControlName="link" />
-    <button type="submit" [disabled]="!joinForm.valid">
-      Присоединиться!
-    </button>
-  </form>
-</div>
 
+<app-game-setup [gameSetup]="gameSetup" [name]="userForm.get('name').value"></app-game-setup>
 
-<app-game-setup [setupGame]="setupGame" [name]="userForm.get('name').value"></app-game-setup>
+<app-game-join [gameJoin]="gameJoin" [name]="userForm.get('name').value"></app-game-join>
 
 <div *ngIf="webSocketService.ErrorData"> Error: {{ webSocketService.ErrorData.body.description}}</div>
 

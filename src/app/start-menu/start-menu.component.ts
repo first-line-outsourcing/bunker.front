@@ -12,18 +12,11 @@ import { changeState } from '../services/states';
 })
 export class StartMenuComponent implements OnInit, OnDestroy {
 
-  setupGame = false;
+  gameSetup = false;
+  gameJoin = false;
   userForm = new FormGroup({
     name: new FormControl(''),
   });
-
-  formLink = false;
-  joinForm = new FormGroup({
-    link: new FormControl('', [Validators.minLength(4), Validators.maxLength(10)])
-  });
-
-
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -39,23 +32,10 @@ export class StartMenuComponent implements OnInit, OnDestroy {
   }
 
   setSetupGame(): void {
-    this.setupGame = changeState(this.setupGame);
-  }
-
-  async joinGame(): Promise<void> {
-    if (!this.webSocketService.isConnected) {
-      await this.webSocketService.openWebSocket();
-    }
-    const summary = {
-        name: this.userForm.get('name').value,
-        link: this.joinForm.get('link').value,
-      };
-    const data = new Data('join', summary);
-    console.log(data);
-    this.webSocketService.sendData(data);
+    this.gameSetup = changeState(this.gameSetup);
   }
 
   setFormLink(): void {
-    this.formLink = changeState(this.formLink);
+    this.gameJoin = changeState(this.gameJoin);
   }
 }

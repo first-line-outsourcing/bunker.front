@@ -1,4 +1,4 @@
-<div *ngIf="setupGame && name">
+<div *ngIf="gameSetup && name">
   <form [formGroup]="setupForm" (ngSubmit)="createGame()" >
     <p>
       <label>Выберите цель игры </label>

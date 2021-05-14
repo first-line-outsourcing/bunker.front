@@ -15,6 +15,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { StartMenuComponent } from './start-menu/start-menu.component';
 import { GameComponent } from './game/game.component';
 import { GameSetupComponent } from './game-setup/game-setup.component';
+import { GameJoinComponent } from './game-join/game-join.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { GameSetupComponent } from './game-setup/game-setup.component';
     StartMenuComponent,
     GameComponent,
     GameSetupComponent,
+    GameJoinComponent,
 ],
   imports: [
     BrowserModule,

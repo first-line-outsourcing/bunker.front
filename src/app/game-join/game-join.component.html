@@ -1,0 +1,9 @@
+<div *ngIf="name && gameJoin">
+  <form [formGroup]="joinForm" (ngSubmit)="joinGame()" >
+    <label>Код для присоединения </label>
+    <input formControlName="link" />
+    <button type="submit" [disabled]="!joinForm.valid">
+      Присоединиться!
+    </button>
+  </form>
+</div>

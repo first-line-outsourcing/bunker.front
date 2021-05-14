@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Data } from '../models/data';
 import { WebSocketService } from '../websocket.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './game-setup.component.html',
   styleUrls: ['./game-setup.component.css']
 })
-export class GameSetupComponent implements OnInit {
+export class GameSetupComponent implements OnInit, OnChanges {
 
   setupForm = new FormGroup({
     purpose: new FormControl(false),
@@ -22,12 +22,24 @@ export class GameSetupComponent implements OnInit {
     amountDangers: new FormControl(0, [Validators.max(3), Validators.min(0)]),
     amountSpecialConditions: new FormControl(1, [Validators.max(3), Validators.min(0)]),
   });
+  isCreate: boolean;
 
-  @Input() setupGame?: boolean;
+  @Input() gameSetup?: boolean;
   @Input() name?: string;
-  constructor(public webSocketService: WebSocketService) { }
+  constructor(public webSocketService: WebSocketService) {
+    this.webSocketService.eventCallback$.subscribe(value => {
+      console.log(value);
+    });
+  }
 
   ngOnInit(): void {
+    this.isCreate = this.webSocketService.isCreate;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.isCreate = this.webSocketService.isCreate;
+   // this.joinGame();
+    console.log('OnCHANGES', this.isCreate);
   }
 
   generateLink(): string {
@@ -43,19 +55,25 @@ export class GameSetupComponent implements OnInit {
   });
   }
 
+  joinGame(): void {
+    if (this.isCreate === true) {
+      const summary = {
+        name: this.name,
+        link: this.setupForm.get('link').value,
+      };
+      const playerData = new Data('join', summary);
+      console.log(playerData);
+      this.webSocketService.sendData(playerData);
+    }
+  }
+
   async createGame(): Promise<void> {
+    console.log(this.isCreate);
     if (!this.webSocketService.isConnected) {
       await this.webSocketService.openWebSocket();
     }
     const gameData = new Data('create', this.setupForm.value);
-    this.webSocketService.sendData(gameData);
-    const summary = {
-      name: this.name,
-      link: this.setupForm.get('link').value,
-    };
-    const playerData = new Data('join', summary);
-    console.log(playerData);
-    this.webSocketService.sendData(playerData);
+    await this.webSocketService.sendData(gameData);
   }
 
 }
