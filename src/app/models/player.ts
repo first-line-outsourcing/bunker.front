@@ -21,7 +21,10 @@ export interface ActivePlayer {
 }
 
 export interface AnotherPlayer {
+  playerId: string;
   name: string;
+  isOnline?: boolean;
+  isOut?: boolean;
   isShow?: boolean;
   isEndDiscuss?: boolean;
   selectedPlayer?: string;

@@ -1,28 +1,21 @@
-<h2>Начать игру</h2>
+  <h2>Начать игру</h2>
 
-<div>
-  <form [formGroup]="userForm" >
-    <label >Ваше имя</label>
-    <input formControlName="name"/>
-  </form>
-</div>
+  <div>
+    <form [formGroup]="userForm" >
+      <label >Ваше имя</label>
+      <input formControlName="name"/>
+    </form>
+  </div>
 
-<div>
-  <button class="set-button" (click)="setSetupGame()">
-    Создать игру!
-  </button>
-  <button class="set-button" (click)="setFormLink()">
-    Присоединиться к игре
-  </button>
-</div>
-
-
-
-<app-game-setup [gameSetup]="gameSetup" [name]="userForm.get('name').value"></app-game-setup>
-
-<app-game-join [gameJoin]="gameJoin" [name]="userForm.get('name').value"></app-game-join>
-
-<div *ngIf="webSocketService.ErrorData"> Error: {{ webSocketService.ErrorData.body.description}}</div>
-
+  <div>
+    <button class="set-button" (click)="goToGameSetup()">
+      Создать игру!
+    </button>
+    <button class="set-button" (click)="goToGameJoin()">
+      Присоединиться к игре
+    </button>
+  </div>
+<router-outlet></router-outlet>
+  <div *ngIf="webSocketService.ErrorData"> Error: {{ webSocketService.ErrorData.body.description}}</div>
 
 

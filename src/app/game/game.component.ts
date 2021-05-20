@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {WebSocketService} from '../websocket.service';
 
 @Component({
   selector: 'app-game',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
-
-  constructor() { }
+data: {};
+  constructor(public webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
+
   }
 
 }

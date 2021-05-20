@@ -1,4 +1,4 @@
-<div *ngIf="gameSetup && name">
+<div *ngIf="name">
   <form [formGroup]="setupForm" (ngSubmit)="createGame()" >
     <p>
       <label>Выберите цель игры </label>
@@ -25,7 +25,7 @@
       <label>Укажите уникальный код вашей игры </label>
       <input formControlName="link"  />
     </p>
-    <button (click)="updateLink()">Другой код</button>
+    <button type="button" (click)="updateLink()">Другой код</button>
 
     <p>
       <label>Укажите количество секунд на голосование </label>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { Data } from '../models/data';
 import { WebSocketService } from '../websocket.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './game-setup.component.html',
   styleUrls: ['./game-setup.component.css']
 })
-export class GameSetupComponent implements OnInit, OnChanges {
+export class GameSetupComponent implements OnInit {
 
   setupForm = new FormGroup({
     purpose: new FormControl(false),
@@ -22,24 +23,34 @@ export class GameSetupComponent implements OnInit, OnChanges {
     amountDangers: new FormControl(0, [Validators.max(3), Validators.min(0)]),
     amountSpecialConditions: new FormControl(1, [Validators.max(3), Validators.min(0)]),
   });
-  isCreate: boolean;
+  
+  name: string;
+  private sub: any;
 
-  @Input() gameSetup?: boolean;
-  @Input() name?: string;
-  constructor(public webSocketService: WebSocketService) {
-    this.webSocketService.eventCallback$.subscribe(value => {
-      console.log(value);
+
+  constructor(
+    public webSocketService: WebSocketService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.webSocketService.eventGameSetup$.subscribe(value => {
+      if (value) {
+        this.joinGame();
+      }
+
+    });
+    this.webSocketService.eventGameJoin$.subscribe(value => {
+      if (value) {
+        this.goToGame();
+        webSocketService.isCreatePlayer = false;
+      }
     });
   }
 
   ngOnInit(): void {
-    this.isCreate = this.webSocketService.isCreate;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.isCreate = this.webSocketService.isCreate;
-   // this.joinGame();
-    console.log('OnCHANGES', this.isCreate);
+    this.sub = this.route.params.subscribe(params => {
+      this.name = params['name'];
+    });
   }
 
   generateLink(): string {
@@ -50,25 +61,19 @@ export class GameSetupComponent implements OnInit, OnChanges {
   }
 
   updateLink(): void {
-    this.setupForm.patchValue({
-    selectedLink: this.generateLink(),
-  });
+    this.setupForm.controls['link'].setValue(this.generateLink());
   }
 
   joinGame(): void {
-    if (this.isCreate === true) {
       const summary = {
         name: this.name,
         link: this.setupForm.get('link').value,
       };
       const playerData = new Data('join', summary);
-      console.log(playerData);
       this.webSocketService.sendData(playerData);
-    }
   }
 
   async createGame(): Promise<void> {
-    console.log(this.isCreate);
     if (!this.webSocketService.isConnected) {
       await this.webSocketService.openWebSocket();
     }
@@ -76,4 +81,7 @@ export class GameSetupComponent implements OnInit, OnChanges {
     await this.webSocketService.sendData(gameData);
   }
 
+  goToGame(): void {
+    this.router.navigate(['/game', this.setupForm.get('link').value]);
+  }
 }

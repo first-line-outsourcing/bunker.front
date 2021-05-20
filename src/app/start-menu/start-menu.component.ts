@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Data } from '../models/data';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import { WebSocketService } from '../websocket.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { changeState } from '../services/states';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-start-menu',
@@ -11,16 +10,12 @@ import { changeState } from '../services/states';
   styleUrls: ['./start-menu.component.css']
 })
 export class StartMenuComponent implements OnInit, OnDestroy {
-
-  gameSetup = false;
-  gameJoin = false;
   userForm = new FormGroup({
     name: new FormControl(''),
   });
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    public webSocketService: WebSocketService
+    public webSocketService: WebSocketService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -28,14 +23,13 @@ export class StartMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.webSocketService.closeWebSocket();
   }
 
-  setSetupGame(): void {
-    this.gameSetup = changeState(this.gameSetup);
+  goToGameSetup(): void {
+    this.router.navigate(['/game-setup', this.userForm.get('name').value]);
   }
 
-  setFormLink(): void {
-    this.gameJoin = changeState(this.gameJoin);
+  goToGameJoin(): void {
+    this.router.navigate(['/game-join', this.userForm.get('name').value]);
   }
 }

@@ -1,4 +1,4 @@
-<div *ngIf="name && gameJoin">
+<div *ngIf="name">
   <form [formGroup]="joinForm" (ngSubmit)="joinGame()" >
     <label>Код для присоединения </label>
     <input formControlName="link" />

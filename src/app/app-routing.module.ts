@@ -5,13 +5,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import {StartMenuComponent} from './start-menu/start-menu.component';
 import {GameComponent} from './game/game.component';
+import {GameSetupComponent} from './game-setup/game-setup.component';
+import {GameJoinComponent} from './game-join/game-join.component';
 
 const routes: Routes = [
-  { path: '', component: StartMenuComponent},
-  { path: 'game/:id', component: GameComponent },
-  { path: 'heroes', component: HeroesComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'detail/:id', component: HeroDetailComponent },
+  { path: '', component: StartMenuComponent, children: [
+      { path: 'game-setup/:name', component: GameSetupComponent },
+      { path: 'game-join/:name', component: GameJoinComponent },
+    ] },
+  { path: 'game/:link', component: GameComponent },
 ];
 
 @NgModule({

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Data } from '../models/data';
 import { WebSocketService } from '../websocket.service';
+import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
   selector: 'app-game-join',
@@ -9,17 +10,30 @@ import { WebSocketService } from '../websocket.service';
   styleUrls: ['./game-join.component.css']
 })
 export class GameJoinComponent implements OnInit {
-
   joinForm = new FormGroup({
     link: new FormControl('', [Validators.minLength(4), Validators.maxLength(10)])
   });
-  @Input() gameJoin?: boolean;
-  @Input() name?: string;
+
+  name: string;
+  private sub: any;
+
   constructor(
-    public webSocketService: WebSocketService
-  ) { }
+    public webSocketService: WebSocketService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
+    this.webSocketService.eventGameJoin$.subscribe(value => {
+      if (value) {
+        this.goToGame();
+        webSocketService.isCreatePlayer = false;
+      }
+    });
+  }
 
   ngOnInit(): void {
+    this.sub = this.route.params.subscribe(params => {
+      this.name = params['name'];
+    });
   }
 
   async joinGame(): Promise<void> {
@@ -35,4 +49,7 @@ export class GameJoinComponent implements OnInit {
     this.webSocketService.sendData(data);
   }
 
+  goToGame(): void {
+    this.router.navigate(['/game', this.joinForm.get('link').value]);
+  }
 }
