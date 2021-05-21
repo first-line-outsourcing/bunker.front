@@ -1,5 +1,5 @@
 
-export interface Card {
+export interface CardData {
   id: number;
   name: string;
   type: string;

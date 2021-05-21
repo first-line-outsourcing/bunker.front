@@ -4,44 +4,35 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { HeroesComponent } from './heroes/heroes.component';
-import { HeroDetailComponent } from './hero-detail/hero-detail.component';
-import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
-import { HeroSearchComponent } from './hero-search/hero-search.component';
-import { StartMenuComponent } from './start-menu/start-menu.component';
-import { GameComponent } from './game/game.component';
-import { GameSetupComponent } from './game-setup/game-setup.component';
-import { GameJoinComponent } from './game-join/game-join.component';
+import { StartMenuComponent } from './start-components/start-menu/start-menu.component';
+import { GameComponent } from './game-components/game/game.component';
+import { GameSetupComponent } from './start-components/game-setup/game-setup.component';
+import { GameJoinComponent } from './start-components/game-join/game-join.component';
+import { PlayersInfoComponent } from './game-components/players-info/players-info.component';
+import { ActivePlayerInfoComponent } from './game-components/active-player-info/active-player-info.component';
+import { GameInfoComponent } from './game-components/game-info/game-info.component';
+import { CardInfoComponent } from './card-components/card-info/card-info.component';
+import { OwnerPlayerComponentComponent } from './game-components/owner-player-component/owner-player-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    MessagesComponent,
-    DashboardComponent,
-    HeroSearchComponent,
     StartMenuComponent,
     GameComponent,
     GameSetupComponent,
     GameJoinComponent,
+    PlayersInfoComponent,
+    ActivePlayerInfoComponent,
+    GameInfoComponent,
+    CardInfoComponent,
+    OwnerPlayerComponentComponent,
 ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-
-// The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-// and returns simulated server responses.
-// Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
     AppRoutingModule
   ],
   providers: [],

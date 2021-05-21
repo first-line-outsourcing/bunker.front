@@ -1,0 +1,7 @@
+<h2>Ваши параметры</h2>
+<ul class = "activePlayer">
+  <span class="badge">Вы: {{webSocketService.activePlayerData.name}}</span>
+  <div *ngFor="let card of webSocketService.activePlayerData.cards">
+    <app-card-info [card]="card"></app-card-info>
+  </div>
+</ul>

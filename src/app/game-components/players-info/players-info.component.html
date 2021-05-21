@@ -1,0 +1,11 @@
+<h2>Игроки</h2>
+<ul class="players">
+  <li *ngFor="let player of webSocketService.playersData">
+    <span class="badge">Имя:{{player.name}}</span>
+    <div *ngFor="let card of player.cards">
+      <app-card-info [card]="card"></app-card-info>
+    </div>
+  </li>
+</ul>
+
+

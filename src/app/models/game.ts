@@ -1,17 +1,26 @@
-import {Card} from './card';
+import {CardData} from './card';
 
 export interface GameData {
-  game: {
-    purpose: boolean;
-    mode: boolean;
-    amountPlayers: number;
-    link: string;
-    timeOnVote: number;
-    timeOnExcuse: number;
-    timeOnDiscuss: number;
-    amountDangers: number;
-    amountSpecialConditions: number;
-  };
-  cards?: Card[];
+  //TODO переименовать game в gameSetup везде
+  game: GameSetup;
+  cards?: CardData[];
+}
+
+export interface GameSetup {
+  purpose: boolean;
+  mode: boolean;
+  amountPlayers: number;
+  link: string;
+  timeOnVote: number;
+  timeOnExcuse: number;
+  timeOnDiscuss: number;
+  amountDangers: number;
+  amountSpecialConditions: number;
+  numRound: number;
+  numVote: number;
+  statusOfRound: string;
+  outedPlayerInLastRound: string;
+  firstPlayerShowHeal: string;
+  typeCardOnThisRound: string;
 }
 
