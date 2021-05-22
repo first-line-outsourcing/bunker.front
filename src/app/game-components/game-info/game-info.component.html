@@ -1,27 +1,14 @@
+<h2>Открытые карты игры:</h2>
 <div *ngFor="let card of webSocketService.gameData.cards">
-  <h2>Открытые карты игры:</h2>
 <app-card-info [card]="card"></app-card-info>
 </div>
 
 <div>
   <h2>Настройки</h2>
   <p>
-    <span>Статус игры{{gameSetup.statusOfRound}}</span>
+    <span>Статус игры: {{webSocketService.gameData.game.statusOfRound}}</span>
   </p>
   <p>
-    <span>{{gameSetup.purpose}}</span>
+    <span>Текущий раунд: {{webSocketService.gameData.game.numRound}}</span>
   </p>
-  <p>
-    <span>{{gameSetup.amountPlayers}}</span>
-  </p>
-  <p>
-    <span>{{gameSetup.timeOnDiscuss}}</span>
-  </p>
-  <p>
-    <span>{{gameSetup.timeOnExcuse}}</span>
-  </p>
-  <p>
-    <span>{{gameSetup.timeOnVote}}</span>
-  </p>
-
 </div>

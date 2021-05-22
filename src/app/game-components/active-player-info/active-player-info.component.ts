@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WebSocketService} from '../../services/websocket.service';
+import {Data} from '../../models/data';
+import {SendCard} from '../../models/card';
 
 @Component({
   selector: 'app-active-player-info',
@@ -11,5 +13,12 @@ export class ActivePlayerInfoComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+ async showCard(cardId): Promise<void> {
+    if (!this.webSocketService.checkData.isConnected) {
+      await this.webSocketService.openWebSocket();
+    }
+    const cardData: SendCard = {id: cardId};
+    const postData = new Data('updateCard', cardData);
+    await this.webSocketService.sendData(postData);
+  }
 }

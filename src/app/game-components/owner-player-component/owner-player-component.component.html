@@ -1,5 +1,11 @@
 <div *ngIf="isOwner">
   <h2> Панель владельца игры</h2>
-  <button (click)="startGame()"> Начать игру</button>
+  <div *ngIf="webSocketService.gameData.game.numRound == -1">
+    <button (click)="startGame()"> Начать игру(раздать начальные карты)</button>
+  </div>
+  <div *ngIf="webSocketService.gameData.game.numRound != -1">
+    <button (click)="updateStatusOfRound()"> Обновить статус игры</button>
+  </div>
+  <div *ngIf="webSocketService.gameData.game.statusOfRound == 'excuse'"></div>
 <!--  TODO сделать изменение текущих настроек-->
 </div>

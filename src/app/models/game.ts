@@ -16,6 +16,7 @@ export interface GameSetup {
   timeOnDiscuss: number;
   amountDangers: number;
   amountSpecialConditions: number;
+  activePlayer: string;
   numRound: number;
   numVote: number;
   statusOfRound: string;

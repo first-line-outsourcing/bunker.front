@@ -7,3 +7,7 @@ export interface CardData {
   isShow: boolean;
   // isUse: boolean;
 }
+
+export interface SendCard {
+  id: number;
+}

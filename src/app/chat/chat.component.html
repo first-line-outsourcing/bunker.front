@@ -1,0 +1,14 @@
+<div *ngIf="webSocketService.chatMessage">
+  <div *ngFor="let message of webSocketService.chatMessage">
+   <p>
+     {{message.name}} написал: {{message.message}}
+   </p>
+  </div>
+</div>
+<div>
+  <label for="message"> </label>
+  <input id="message" [(ngModel)]="message" placeholder="message">
+  <div *ngIf="webSocketService.checkData.isSendingMessage">
+    <button (click)="sendMessage()"> Отправить сообщение</button>
+  </div>
+</div>

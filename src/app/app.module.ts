@@ -14,6 +14,8 @@ import { ActivePlayerInfoComponent } from './game-components/active-player-info/
 import { GameInfoComponent } from './game-components/game-info/game-info.component';
 import { CardInfoComponent } from './card-components/card-info/card-info.component';
 import { OwnerPlayerComponentComponent } from './game-components/owner-player-component/owner-player-component.component';
+import { GameRoundComponent } from './game-components/game-round/game-round.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { OwnerPlayerComponentComponent } from './game-components/owner-player-co
     GameInfoComponent,
     CardInfoComponent,
     OwnerPlayerComponentComponent,
+    GameRoundComponent,
+    ChatComponent,
 ],
   imports: [
     BrowserModule,

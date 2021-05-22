@@ -18,8 +18,11 @@ export class OwnerPlayerComponentComponent implements OnInit {
   }
 
   startGame(): void {
-
     const data = new Data('startGame' );
+    this.webSocketService.sendData(data);
+  }
+  updateStatusOfRound(): void {
+    const data = new Data('updateStatus');
     this.webSocketService.sendData(data);
   }
 }
