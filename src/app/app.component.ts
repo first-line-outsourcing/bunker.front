@@ -12,6 +12,5 @@ export class AppComponent implements OnDestroy{
   constructor(public webSocketService: WebSocketService) {
   }
   ngOnDestroy(): void {
-    this.webSocketService.closeWebSocket();
   }
 }

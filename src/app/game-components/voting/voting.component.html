@@ -1,0 +1,13 @@
+<div *ngIf="webSocketService.gameData.game.statusOfRound === 'voting'">
+  <div *ngFor="let player of webSocketService.playersData">
+    {{player.name}} - <button (click)="voting(player.playerId)"> Проголосовать за него</button>
+  </div>
+  <div>
+    <button (click)="voting(webSocketService.activePlayerData.playerId)">Проголосовать за себя</button>
+  </div>
+</div>
+
+
+<div *ngIf="webSocketService.playerVote">
+  <h3>Игрок, которого изгоняют: {{webSocketService.playerVote.name}}</h3>
+</div>

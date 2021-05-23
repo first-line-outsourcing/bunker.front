@@ -5,6 +5,7 @@ import {ActivePlayerData, PlayerData} from '../models/player';
 import {ChatMessage} from '../models/chatMessage';
 import {CheckData} from '../models/checkData';
 import {checkingIsSendingCard, checkingIsSendingMessage} from './checkingIsSending';
+import {PlayerVote} from '../models/vote';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,12 @@ import {checkingIsSendingCard, checkingIsSendingMessage} from './checkingIsSendi
 
 export class WebSocketService {
   webSocket: WebSocket;
-  checkData: CheckData = {isConnected: false, isCreatePlayer: false, isCreateGame: false, isSendingMessage: true, isSendingCard: false};
+  checkData = new CheckData();
   chatMessage: ChatMessage[] = [];
   gameData: GameData;
   activePlayerData: ActivePlayerData;
   playersData: PlayerData[] = [];
+  playerVote: PlayerVote;
 
   ErrorData: {status: string, body: {description: string}};
 
@@ -94,20 +96,30 @@ export class WebSocketService {
         }
         if (data.status === 'UPDATE_GAME_CARDS') {
           this.gameData.cards.push(data.body);
-          console.log(this.gameData.cards);
         }
         if (data.status === 'SEND_MESSAGE') {
           this.chatMessage.push(data.body);
         }
         if (data.status === 'SEND_EXCUSE_PLAYER') {
           this.gameData.game.activePlayer = data.body.playerId;
-          //For chat and cards;
+          // For chat and cards;
           this.checkingIsSending();
         }
         if (data.status === 'ALL_PLAYERS_EXCUSE') {
-          //Cringe
+          // Cringe
           this.gameData.game.activePlayer = '';
           this.checkingIsSending();
+        }
+        if (data.status === 'YOU_SHOW_CARD') {
+          // Cringe
+          this.checkData.isSendingCard = false;
+        }
+        if (data.status === 'SHOW_RESULT') {
+          this.playerVote = data.body;
+        }
+        if (data.status === 'GAME_FINISHED') {
+          //TODO destroy
+          this.checkData.isFinished = true;
         }
       };
       this.webSocket.onclose = (event) => {

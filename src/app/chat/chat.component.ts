@@ -22,10 +22,10 @@ export class ChatComponent implements OnInit {
     // const data = new Data('sendMessage', chatMessage);
     // await this.webSocketService.sendData(data);
 
-    if (!this.webSocketService.checkData.isConnected) {
+     if (!this.webSocketService.checkData.isConnected) {
       await this.webSocketService.openWebSocket();
     }
-    const gameData = new Data('sendMessage', chatMessage);
-    await this.webSocketService.sendData(gameData);
+     const gameData = new Data('sendMessage', chatMessage);
+     await this.webSocketService.sendData(gameData);
   }
 }

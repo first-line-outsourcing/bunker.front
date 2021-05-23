@@ -25,4 +25,5 @@ export class OwnerPlayerComponentComponent implements OnInit {
     const data = new Data('updateStatus');
     this.webSocketService.sendData(data);
   }
+
 }

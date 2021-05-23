@@ -1,5 +1,5 @@
 export function checkingIsSendingMessage(statusOfRound, activePlayer, playerId): boolean  {
-  return statusOfRound !== 'excuse' || statusOfRound !== 'voting' || activePlayer === playerId || !activePlayer;
+  return statusOfRound !== 'excuse' && statusOfRound !== 'voting' || activePlayer === playerId || !activePlayer ;
 
 }
 

@@ -16,6 +16,7 @@ import { CardInfoComponent } from './card-components/card-info/card-info.compone
 import { OwnerPlayerComponentComponent } from './game-components/owner-player-component/owner-player-component.component';
 import { GameRoundComponent } from './game-components/game-round/game-round.component';
 import { ChatComponent } from './chat/chat.component';
+import { VotingComponent } from './game-components/voting/voting.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ChatComponent } from './chat/chat.component';
     OwnerPlayerComponentComponent,
     GameRoundComponent,
     ChatComponent,
+    VotingComponent,
 ],
   imports: [
     BrowserModule,
